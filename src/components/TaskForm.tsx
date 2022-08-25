@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Input from "./reusables/Input/Input";
 import Button from "./reusables/Button/Button";
 import SelectInput from "./reusables/Input/SelectInput";
-import { addTask, getAssignedUsers, getSingleTask, getTasks, IAssignedUser, setTask, showTaskForm, updateTask } from "../store/slices/task.slice";
+import { addTask, deleteTask, getAssignedUsers, getSingleTask, getTasks, IAssignedUser, setTask, showTaskForm, updateTask } from "../store/slices/task.slice";
 import { useAppDispatch } from "../store/hooks";
 import { formatDate, formatTime, getTimeZone, HMStoInteger, IntegerToHMS, timeCheck, toHHMM } from "../utils/helperFunctions";
 import { useSelector } from "react-redux";
@@ -30,30 +30,32 @@ const TaskForm = () => {
     const dispatch = useAppDispatch()
     const {user,token} = useSelector((state: RootState) => state.auth);
 
-    const [time2,setTime2] = useState(new Date())
-    const [date2,setDate2] = useState(new Date())
-
     function save() {
         let task_time = HMStoInteger(formatTime(time)+":00");
         let time_zone = HMStoInteger(getTimeZone()+":00");
         let task_msg = taskDesc;
-        let task_date = formatDate(date);
+        let task_date = formatDate(date,'-');
         let assigned_user = assignedUser;
         let is_completed = 0;
         let body = {task_msg,task_date,task_time,assigned_user,is_completed,time_zone};
         let task_id = task.id
 
-        console.log(timeCheck(time));
-        console.log(date);
-        console.log(body);
-        console.log(task);
-
-        dispatch(setTask(body))
+        if (editing) {
+            dispatch(setTask(body))   
+        }
 
         if (!editing) {
             dispatch(addTask({token,user,body}))
         }else{
             dispatch(updateTask({token,user,task_id,body}))
+        }
+    }
+
+    function removeTask() {
+        let c = window.confirm("Are you sure you want to delete this task?");
+        if (c) {
+            let task_id = task.id
+            dispatch(deleteTask({token,user,task_id}))
         }
     }
 
@@ -110,7 +112,7 @@ const TaskForm = () => {
 
                 <div className="max-w-2xl grid grid-cols-7  gap-x-1 mt-10">
                     <div className="drop-shadow-md col-span-3 flex items-center">
-                        {!editing || <FontAwesomeIcon icon={solid('trash')} className="text-sm"/>}
+                        {!editing || <FontAwesomeIcon icon={solid('trash')} className="text-sm cursor-pointer" onClick={removeTask}/>}
                     </div>
                     <div className="col-span-4 flex justify-between items-center">
                         <DefaultButton onClick={() => dispatch(showTaskForm(false))}>Cancel</DefaultButton>

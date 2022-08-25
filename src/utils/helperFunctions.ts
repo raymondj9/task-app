@@ -20,7 +20,7 @@ export const getTimeZone = () => {
 	return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
 }
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date: Date, seperator?: string) => {
 	if (!(date instanceof Date)) {
 		date = new Date(date)
 	}
@@ -34,7 +34,11 @@ export const formatDate = (date: Date) => {
     if (day.length < 2) 
         day = '0' + day;
 
-    return [year, month, day].join('-');
+	if (typeof seperator === 'undefined') {
+		seperator = '/'
+	}
+
+    return [year, month, day].join(seperator);
 }
 
 export const formatTime = (date: Date) => {

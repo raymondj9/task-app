@@ -75,10 +75,16 @@ const taskSlice = createSlice({
 
 		builder.addCase(addTask.fulfilled, (state, action: any) => {
 			alert(action.payload.data.message)
+			state.show_task_form = false;
 		})
 
 		builder.addCase(updateTask.fulfilled, (state, action: any) => {
 			alert(action.payload.data.message)
+		})
+
+		builder.addCase(deleteTask.fulfilled, (state, action: any) => {
+			alert(action.payload.data.message)
+			state.show_task_form = false;
 		})
 
 		builder.addCase(getTasks.fulfilled, (state, action: any) => {
@@ -186,6 +192,29 @@ export const updateTask =
 				},
 			};
 			const res = await axios.put(BASE_URL+'/task/lead_465c14d0e99e4972b6b21ffecf3dd691/'+params.task_id+'?company_id='+params.user.company_id,body,config);
+			return res
+		} catch (error: any) {
+			return ThunkAPI.rejectWithValue(error)
+		}
+	}
+)
+
+export const deleteTask = 
+	createAsyncThunk('task/deletTask',
+	async(params: {
+		token:string, 
+		user:Partial<IUser>, 
+		task_id:string,
+	}, ThunkAPI) => {
+		try {
+			const BASE_URL = process.env.REACT_APP_BASEURL
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": "Bearer "+params.token
+				},
+			};
+			const res = await axios.delete(BASE_URL+'/task/lead_465c14d0e99e4972b6b21ffecf3dd691/'+params.task_id+'?company_id='+params.user.company_id,config);
 			return res
 		} catch (error: any) {
 			return ThunkAPI.rejectWithValue(error)

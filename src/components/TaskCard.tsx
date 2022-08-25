@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { ITask, setEditing, setTask, showTaskForm } from "../store/slices/task.slice";
 import { useAppDispatch } from "../store/hooks";
+import { formatDate, timeCheck } from "../utils/helperFunctions";
 
 interface TaskCardProps {
     task:ITask
@@ -23,7 +24,7 @@ const TaskCard: React.FC<TaskCardProps> = ({task}) => {
                 <img src={task.icon} />
                 <div>
                     <div className="font-semibold">{task.task_msg}</div>
-                    {/* <div className="text-red-500 text-sm">{task.task_date}</div> */}
+                    <div className="text-red-500 text-sm">{formatDate(task.task_date)}</div>
                 </div>
             </div>
             <div className="col-span-2 grid grid-cols-3 items-center gap-x-2 task-actions">
