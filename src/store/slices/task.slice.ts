@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import React, { ReactHTMLElement } from "react";
 import store, { RootState } from "..";
-import { getTimeZone, HMStoInteger } from "../../utils/helperFunctions";
+import { formatTime, getTimeZone, HMStoInteger } from "../../utils/helperFunctions";
 import { useAppSelector } from "../hooks";
 import { IUser } from "./auth.slice";
 
@@ -23,8 +23,8 @@ export interface IAssignedUser {
 export interface ITask {
 	id:string;
 	task_msg:string;
-    task_time:number;
-	task_date:number;
+    task_time:Date;
+	task_date:Date;
 	assigned_user:string;
 	time_zone:number;
 	is_completed:number;
@@ -35,8 +35,8 @@ const initialState: IState = {
 	task: <ITask>{
 		id:'',
 		task_msg:'',
-		task_time:0,
-		task_date:0,
+		task_time:new Date(),
+		task_date:new Date(),
 		assigned_user:'',
 		time_zone:0,
 		is_completed:0,
@@ -55,7 +55,7 @@ const taskSlice = createSlice({
 		showTaskForm: (state: IState, val: any) => {
 			// val: boolean
 			if (!val.payload) {
-				state.task = <ITask>{}
+				state.task = initialState.task
 				state.editing = false
 			}
 			state.show_task_form = val.payload
@@ -74,6 +74,10 @@ const taskSlice = createSlice({
 		})
 
 		builder.addCase(addTask.fulfilled, (state, action: any) => {
+			alert(action.payload.data.message)
+		})
+
+		builder.addCase(updateTask.fulfilled, (state, action: any) => {
 			alert(action.payload.data.message)
 		})
 

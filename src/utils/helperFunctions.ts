@@ -19,3 +19,44 @@ export const getTimeZone = () => {
 	var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
 	return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
 }
+
+export const formatDate = (date: Date) => {
+	if (!(date instanceof Date)) {
+		date = new Date(date)
+	}
+    var d = date,
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+export const formatTime = (date: Date) => {
+	if (!(date instanceof Date)) {
+		date = new Date(date)
+	}
+    var d = date,
+        hours = '' + (d.getUTCHours() + 1),
+        mins = '' + d.getUTCMinutes(),
+		off = '' + d.getUTCDate();
+
+    return [hours, mins].join(':');
+}
+
+export const timeCheck = (time: any) => {
+	if (!(time instanceof Date)) {
+		if(!isNaN(time)) {
+			var t = new Date(1970, 0, 1);
+			t.setSeconds(time);
+			return t;
+		}
+		time = new Date(time)
+	}
+    return time;
+}

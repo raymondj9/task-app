@@ -10,7 +10,7 @@ import TaskList from "./TaskList";
 
 const TaskWrapper = () => {
     const [addTask,setAddTask] = useState(false)
-    const {show_task_form} = useSelector((state: RootState) => state.task);
+    const {show_task_form,tasks} = useSelector((state: RootState) => state.task);
     const dispatch = useAppDispatch()
 
     return (
@@ -18,7 +18,7 @@ const TaskWrapper = () => {
             <div className="card-title">
                 <div className="flexbox items-center">
                     <span>TASKS</span>
-                    <span>0</span>
+                    <span>{tasks.length}</span>
                 </div>
 
                 <div className="add-task cursor-pointer" onClick={() => {dispatch(showTaskForm(true))}}>
@@ -49,7 +49,7 @@ const Card = styled.section`
         }
 
         & span:last-of-type {
-            color: #bdd;
+            color: #8f9494;
             margin-left: 8px;
         }
 
