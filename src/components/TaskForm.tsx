@@ -77,25 +77,39 @@ const TaskForm = () => {
                 />
 
                 <div className="flex gap-x-6 mt-10">
-                    <DatePicker
-                        closeOnScroll={true}
-                        selected={date}
-                        onChange={(e: any) => setDate(e)}
-                        dateFormat="dd/MM/yyyy"
-                    />
+                    <div>
+                        <label className="mb-2 block" htmlFor='time'>
+                            Date
+                        </label>
+                        <DatePicker
+                            closeOnScroll={true}
+                            selected={date}
+                            onChange={(e: any) => setDate(e)}
+                            dateFormat="dd/MM/yyyy"
+                        />
+                    </div>
 
-                    <DatePicker
-                        selected={time}
-                        onChange={(date: any) => setTime(date)}
-                        showTimeSelect
-                        showTimeSelectOnly
-                        timeIntervals={15}
-                        timeCaption="Time"
-                        dateFormat="h:mm aa"
-                    />
+                    <div>
+                        <label className="mb-2 block" htmlFor='time'>
+                            Time
+                        </label>
+                        <DatePicker
+                            id="time"
+                            selected={time}
+                            onChange={(date: any) => setTime(date)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={15}
+                            timeCaption="Time"
+                            dateFormat="h:mm aa"
+                        />
+                    </div>
                 </div>
 
                 <div className="mt-10">
+                    <label className="mb-2 block" htmlFor='time'>
+                        Time
+                    </label>
                     <SelectInput
                         id="select"
                         name="select"
@@ -128,6 +142,12 @@ const Wrapper = styled.div`
     background-color: #edf7fc;
     border-radius: 6px;
     padding: 14px;
+
+    & label {
+        font-size: 17px;
+        line-height: 22px;
+        font-weight: 600;;
+    }
 
     & .react-datepicker-wrapper input {
         font-size: 13px !important;
