@@ -108,7 +108,7 @@ const TaskForm = () => {
 
                 <div className="mt-10">
                     <label className="mb-2 block" htmlFor='time'>
-                        Time
+                        Assigned User
                     </label>
                     <SelectInput
                         id="select"
