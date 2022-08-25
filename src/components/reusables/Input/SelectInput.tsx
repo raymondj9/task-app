@@ -38,7 +38,7 @@ const SelectInput: React.FC<InputProps> = ({
 			)}
 			{/* <StyledInput */}
 				<div className="flex justify-center">
-					<div className="mb-3 xl:w-96">
+					<div className="mb-3 w-full">
 					<StyledInput className="form-select appearance-none
 						block
 						w-full

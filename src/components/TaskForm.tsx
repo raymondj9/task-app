@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Input from "./reusables/Input/Input";
-import DatePicker from "./reusables/Input/DatePicker";
 import Button from "./reusables/Button/Button";
 import SelectInput from "./reusables/Input/SelectInput";
 import { addTask, getAssignedUsers, getSingleTask, getTasks, IAssignedUser, showTaskForm, updateTask } from "../store/slices/task.slice";
@@ -11,6 +10,8 @@ import { useSelector } from "react-redux";
 import { persistor, RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface TaskFormProps {
 	task_desc:string;
@@ -28,7 +29,10 @@ const TaskForm = () => {
     const [assignedUsers,setAssignedUsers] = useState<[IAssignedUser]>() || []
     const dispatch = useAppDispatch()
     const {user,token} = useSelector((state: RootState) => state.auth);
-    
+    const [startDate, setStartDate] = useState(new Date());
+
+    const [time2,setTime2] = useState(new Date())
+    const [date2,setDate2] = useState(new Date())
 
     function save() {
         let task_time = HMStoInteger(time+":00");
@@ -65,7 +69,7 @@ const TaskForm = () => {
                 />
 
                 <div className="flex gap-x-6 mt-10">
-                    <Input
+                    {/* <Input
                         onChange={(e) => setDate(e.target.value)}
                         value={date}
                         name="date"
@@ -73,11 +77,11 @@ const TaskForm = () => {
                         id="date"
                         label="Date"
                         placeholder="Date"
-                    />
+                    /> */}
 
                     {/* <DatePicker/> */}
 
-                    <Input
+                    {/* <Input
                         onChange={(e) => setTime(e.target.value)}
                         value={time}
                         name="time"
@@ -85,6 +89,22 @@ const TaskForm = () => {
                         id="time"
                         label="Time"
                         placeholder="Time"
+                    /> */}
+
+                    <DatePicker
+                        closeOnScroll={true}
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date2)}
+                    />
+
+                    <DatePicker
+                        selected={time2}
+                        onChange={(e:any) => setTime2(e)}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        timeCaption="Time"
+                        dateFormat="h:mm aa"
                     />
                 </div>
 
@@ -103,6 +123,7 @@ const TaskForm = () => {
                     <SelectInput
                         id="select"
                         name="select"
+                        className="w-full"
                         onChange={(e) => setAssignedUser(e.target.value)}
                         value={assignedUser}
                         >
@@ -131,6 +152,12 @@ const Wrapper = styled.div`
     background-color: #edf7fc;
     border-radius: 6px;
     padding: 14px;
+
+    & .react-datepicker-wrapper input {
+        font-size: auto !important;
+        padding: 8px 5px;
+        border-radius: 6;
+    }
 `;
 
 export default TaskForm;
