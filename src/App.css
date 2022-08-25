@@ -1,3 +1,11 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+}
+
 .App {
   text-align: center;
 }
