@@ -33,6 +33,7 @@ const TaskWrapper = () => {
 }
 
 const Card = styled.section`
+    padding: 0 0.8px;
 	border: 1px solid #c5c2c2;
     width: 450px;
     border-radius: 6px;
@@ -40,7 +41,7 @@ const Card = styled.section`
     & .card-title {
         background-color: #fff;
         border-bottom: 1px solid #c5c2c2;
-        padding: 6px 8px;
+        padding: 1px 8px;
         display: flex;
         justify-content: space-between;
 
@@ -55,6 +56,8 @@ const Card = styled.section`
 
         & .add-task {
             font-size: 2em;
+            border-left: 1px solid #b1b6b6;
+            padding: 0 6px;
         }
     }
 
