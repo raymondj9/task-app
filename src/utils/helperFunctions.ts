@@ -36,6 +36,7 @@ export const formatDate = (date: Date, seperator?: string) => {
 
 	if (typeof seperator === 'undefined') {
 		seperator = '/'
+		return [day, month, year].join(seperator);
 	}
 
     return [year, month, day].join(seperator);
