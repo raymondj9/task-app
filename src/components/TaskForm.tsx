@@ -116,7 +116,7 @@ const TaskForm = () => {
                     </div>
                     <div className="col-span-4 flex justify-between items-center">
                         <DefaultButton onClick={() => dispatch(showTaskForm(false))}>Cancel</DefaultButton>
-                        <Button onClick={save}>Save</Button>
+                        <Button onClick={save} className="!h-10">Save</Button>
                     </div>
                 </div>
             </form>
