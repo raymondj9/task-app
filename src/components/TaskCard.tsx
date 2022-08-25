@@ -15,7 +15,7 @@ const TaskCard: React.FC<TaskCardProps> = ({task}) => {
         dispatch(setTask(task))
         dispatch(showTaskForm(true))
         dispatch(setEditing(true))
-        alert(task.icon)
+        // alert(task.icon)
     }
     return (
         <Card className="grid grid-cols-6">
