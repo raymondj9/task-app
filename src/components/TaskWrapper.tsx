@@ -36,7 +36,6 @@ const Card = styled.section`
 	border: 1px solid #c5c2c2;
     width: 450px;
     border-radius: 6px;
-    padding: 0 10px;
 
     & .card-title {
         background-color: #fff;
